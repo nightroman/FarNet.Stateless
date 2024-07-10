@@ -84,7 +84,7 @@ Call   : $Callee $StartedAt - $EndedAt
 "@
 }
 
-# Create the state machine and using the provided state parameter.
+# Create the state machine using the provided state parameter.
 $machine = [Stateless.StateMachine[PhoneState, PhoneTrigger]]::new($State)
 
 $setCalleeTrigger = $machine.SetTriggerParameters([PhoneTrigger]::Dial, [string])

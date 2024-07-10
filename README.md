@@ -4,12 +4,21 @@
 
 Stateless library interactive helpers, PowerShell module and FarNet library
 
-The module provides interactive helpers for [Stateless] state machines.
-Machines may be created in PowerShell scripts or imported assemblies.
+The package provides interactive helpers for [Stateless] state machines.\
+Machines may be created in PowerShell scripts or in imported assemblies.
 
 Packages:
 - PowerShell 5.1+ module, PSGallery [FarNet.Stateless](https://www.powershellgallery.com/packages/FarNet.Stateless)
 - FarNet library, NuGet [FarNet.Stateless](https://www.nuget.org/packages/FarNet.Stateless)
+
+## Examples
+
+See [FarNet.Stateless/examples](https://github.com/nightroman/FarNet.Stateless/tree/main/examples)
+
+[Phone.stateless.ps1](https://github.com/nightroman/FarNet.Stateless/blob/main/examples/Phone.stateless.ps1) example with interactive loop in PowerShell:\
+(`OnHook` -> `OffHook` -> `Dial` (+ prompt for number) -> `Ringing` -> `Connected` -> ...)
+
+![image](https://github.com/nightroman/FarNet/assets/927533/0fa4bc5e-7e69-4f37-aee7-36d8f710251f)
 
 ## PowerShell module
 
