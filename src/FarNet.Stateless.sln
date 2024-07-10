@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PS.FarNet.Stateless", "PS.FarNet.Stateless\PS.FarNet.Stateless.csproj", "{5DF4F04C-0C70-4E28-950E-624585F56E15}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarNet.Stateless", "FarNet.Stateless\FarNet.Stateless.csproj", "{E98FF651-C29E-4CF8-8660-B0AFAEE2C8D1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2D9FD044-6F71-4509-9736-3E249C5531F0}"
+	ProjectSection(SolutionItems) = preProject
+		Content\FarNet.Stateless.psd1 = Content\FarNet.Stateless.psd1
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5DF4F04C-0C70-4E28-950E-624585F56E15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DF4F04C-0C70-4E28-950E-624585F56E15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DF4F04C-0C70-4E28-950E-624585F56E15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DF4F04C-0C70-4E28-950E-624585F56E15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E98FF651-C29E-4CF8-8660-B0AFAEE2C8D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E98FF651-C29E-4CF8-8660-B0AFAEE2C8D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E98FF651-C29E-4CF8-8660-B0AFAEE2C8D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E98FF651-C29E-4CF8-8660-B0AFAEE2C8D1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B621E019-5681-4BDE-A5EA-4752D4009174}
+	EndGlobalSection
+EndGlobal

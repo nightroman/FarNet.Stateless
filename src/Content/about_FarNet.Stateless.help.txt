@@ -1,0 +1,21 @@
+﻿TOPIC
+    about_FarNet.Stateless
+
+SHORT DESCRIPTION
+    Stateless library interactive helpers.
+
+LONG DESCRIPTION
+    The module provides helpers for the "Stateless" library.
+
+MODULE COMMANDS
+    Invoke-Stateless
+        Starts or resumes the Stateless script or checkpoint.
+
+    Invoke-StateMachine
+        Invokes the state machine interactive loop.
+
+    Show-StateMachine
+        Shows the state machine graph in a generated HTML page.
+
+SEE ALSO
+    Stateless https://github.com/dotnet-state-machine/stateless
