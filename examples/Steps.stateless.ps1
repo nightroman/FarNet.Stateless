@@ -6,24 +6,21 @@
 	Wizard like workflow with three steps.
 
 .Example
-	Invoke-Stateless Three.stateless.ps1
-
-.Example
-	Invoke-StateMachine (& ./Three.stateless.ps1)
+	Invoke-Stateless Steps.stateless.ps1
 #>
 
 param(
-	$State = 'step1'
+	[string]$State = 'Step1'
 )
 
 $ErrorActionPreference = 1
 Import-Module FarNet.Stateless
 
-$1 = 'step1'
-$2 = 'step2'
-$3 = 'step3'
+$1 = 'Step1'
+$2 = 'Step2'
+$3 = 'Step3'
 
-$machine = [Stateless.StateMachine[string, string]]($State)
+$machine = [Stateless.StateMachine[string, string]]::new($State)
 
 $machine.OnTransitioned({
 	param($Transition)
@@ -41,12 +38,12 @@ $entry = [Action[Stateless.StateMachine`2+Transition[string, string]]]{
 }
 
 $config = $machine.Configure($1)
-$null = $config.Permit('next', $2)
+$null = $config.Permit('Next', $2)
 $null = $config.OnEntry($entry, 'entry')
 
 $config = $machine.Configure($2)
-$null = $config.Permit('next', $3)
-$null = $config.Permit('back', $1)
+$null = $config.Permit('Next', $3)
+$null = $config.Permit('Back', $1)
 $null = $config.OnEntry($entry, 'entry')
 
 $machine

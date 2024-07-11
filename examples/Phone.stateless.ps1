@@ -18,9 +18,6 @@
 
 .Example
 	Invoke-Stateless Phone.stateless.ps1
-
-.Example
-	Invoke-StateMachine (& ./Phone.stateless.ps1)
 #>
 
 param(

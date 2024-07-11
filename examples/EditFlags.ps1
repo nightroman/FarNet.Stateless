@@ -4,7 +4,7 @@
 #>
 
 param(
-	[string]$State = 'Flag2'
+	[string]$State = 'None'
 )
 
 $ErrorActionPreference = 1
@@ -18,7 +18,7 @@ enum MyFlags {
 	Flag3 = 4
 }
 
-$machine = [Stateless.StateMachine[MyFlags, string]]([MyFlags]$State)
+$machine = [Stateless.StateMachine[MyFlags, string]]::new($State)
 
 $values = [Enum]::GetValues([MyFlags])
 $max = ($values | Measure-Object -Sum).Sum
