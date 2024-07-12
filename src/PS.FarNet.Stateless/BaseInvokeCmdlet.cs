@@ -1,6 +1,7 @@
 ﻿using FarNet.Stateless;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Management.Automation;
 using System.Management.Automation.Host;
 
@@ -16,6 +17,27 @@ public abstract class BaseInvokeCmdlet : PSCmdlet
 
     protected MetaMachine Helper { get; private set; }
 
+    private static string GetText(object value, object defaultValue)
+    {
+        value = value.ToBaseObject();
+        if (value is null)
+            return defaultValue.ToString();
+
+        if (value is string text)
+            return text;
+
+        if (value is not ScriptBlock script)
+            return LanguagePrimitives.ConvertTo<string>(value);
+
+        var res = script.Invoke();
+        return res.Count switch
+        {
+            0 => string.Empty,
+            1 => LanguagePrimitives.ConvertTo<string>(res[0]),
+            _ => string.Join(Environment.NewLine, res.Select(LanguagePrimitives.ConvertTo<string>)),
+        };
+    }
+
     protected void InvokeStateMachine(
         object machine,
         object caption,
@@ -30,23 +52,8 @@ public abstract class BaseInvokeCmdlet : PSCmdlet
             var state1 = Helper.State;
             var triggers = Helper.GetPermittedTriggers();
 
-            var captionText = caption.ToBaseObject() switch
-            {
-                ScriptBlock script => script.InvokeReturnAsIs()?.ToString(),
-                string text => text,
-                _ => null
-            };
-            if (string.IsNullOrEmpty(captionText))
-                captionText = $"State: {Helper.State}";
-
-            var messageText = message.ToBaseObject() switch
-            {
-                ScriptBlock script => script.InvokeReturnAsIs()?.ToString(),
-                string text => text,
-                _ => null
-            };
-            if (string.IsNullOrEmpty(messageText))
-                messageText = "Select trigger";
+            var captionText = GetText(caption, Helper.State);
+            var messageText = GetText(message, string.Empty);
 
             Collection<ChoiceDescription> choices = [];
             int n = -1;

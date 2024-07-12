@@ -142,4 +142,8 @@ task pushPSGallery package, {
 
 task push pushNuGet, pushPSGallery, clean
 
+task test {
+	Start-Far "ps: Test.far.ps1 * -Quit" .\tests -ReadOnly -Title $ModuleName\test
+}
+
 task . build, clean

@@ -44,7 +44,7 @@ $_Show = @'
 		restored as the same script scope variables.
 
 	(5) Script functions Get-StatelessCaption and Get-StatelessMessage may be
-	used for custom prompt caption and message respectively.
+	used for the custom prompt caption and message respectively.
 
 	CHECKPOINTS
 
@@ -83,10 +83,12 @@ $_Show = @'
 	parameters = @{
 		Machine = $_Machine
 		Caption = @'
-		Specifies the string or script block to be used as prompt caption.
+		Specifies the prompt caption as script block or value.
+		Default: current state.
 '@
 		Message = @'
-		Specifies the string or script block to be used as prompt message.
+		Specifies the prompt message as script block or value.
+		Default: empty string.
 '@
 		Show = $_Show
 	}

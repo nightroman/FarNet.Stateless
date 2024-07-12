@@ -74,11 +74,9 @@ function Get-StatelessCaption {
 
 # Gets the custom prompt message.
 function Get-StatelessMessage {
-	@"
-Volume : $Volume
-Muted  : $Muted
-Call   : $Callee $StartedAt - $EndedAt
-"@
+	"Volume : $Volume"
+	"Muted  : $Muted"
+	"Call   : $Callee $StartedAt - $EndedAt"
 }
 
 # Create the state machine using the provided state parameter.
