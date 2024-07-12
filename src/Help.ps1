@@ -1,16 +1,26 @@
-﻿Import-Module FarNet.Stateless
+﻿Set-StrictMode -Version 3
+Import-Module FarNet.Stateless
 
 $_Machine = @'
 		Specifies the state machine instance.
 '@
 
-$_Show = @'
-		Tells to add "Show" to the prompt. It generates an HTML page with the
-		state machine graph and opens it by the associated program.
+### BaseInvoke
+$BaseInvoke = @{
+	parameters = @{
+		Prompt = @'
+		Tells to add the "Prompt" choice. It enters the nested prompt.
+		Type `exit` to exit the nested prompt and resume the loop.
 '@
+		Show = @'
+		Tells to add the "Show" choice. It generates HTML with the state
+		machine graph and opens the page by the associated program.
+'@
+	}
+}
 
 ### Invoke-Stateless
-@{
+Merge-Helps $BaseInvoke @{
 	command = 'Invoke-Stateless'
 	synopsis = 'Starts or resumes the Stateless script or checkpoint.'
 	description = @'
@@ -68,12 +78,11 @@ $_Show = @'
 		File = @'
 		Specifies the Stateless script or checkpoint file.
 '@
-		Show = $_Show
 	}
 }
 
 ### Invoke-StateMachine
-@{
+Merge-Helps $BaseInvoke @{
 	command = 'Invoke-StateMachine'
 	synopsis = 'Invokes the state machine interactive loop.'
 	description = @'
@@ -90,7 +99,6 @@ $_Show = @'
 		Specifies the prompt message as script block or value.
 		Default: empty string.
 '@
-		Show = $_Show
 	}
 }
 

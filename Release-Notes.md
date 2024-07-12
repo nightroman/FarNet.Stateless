@@ -1,6 +1,10 @@
 # FarNet.Stateless Release Notes
 See also [Stateless/CHANGELOG](https://github.com/dotnet-state-machine/stateless/blob/dev/CHANGELOG.md)
 
+## v0.0.3
+
+New parameter `Prompt`.
+
 ## v0.0.2
 
 Tweak prompts and graphs.

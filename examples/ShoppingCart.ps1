@@ -52,9 +52,15 @@ $null = $config.Permit([CartTrigger]::EditCart, [CartState]::Draft)
 $null = $config.Permit([CartTrigger]::DeleteCart, [CartState]::Deleted)
 $null = $config.Permit([CartTrigger]::PurchaseCart, [CartState]::Purchased)
 
+# Used as the custom prompt for choice message.
 function Get-StatelessMessage {
 	"Cart items: $Items"
 	$Note
 }
 
-Invoke-StateMachine $machine -Show -Message {Get-StatelessMessage}
+# Used as the nested prompt text.
+function prompt {
+	"$($machine.State)> "
+}
+
+Invoke-StateMachine $machine -Show -Prompt -Message {Get-StatelessMessage}

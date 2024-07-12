@@ -24,7 +24,7 @@ public sealed class InvokeStatelessCommand : BaseInvokeCmdlet, IDynamicParameter
     static readonly ScriptBlock MessageScript = ScriptBlock.Create("Get-StatelessMessage");
 
     static readonly new string[] CommonParameters = ["Verbose", "Debug", "ErrorAction", "WarningAction", "ErrorVariable", "WarningVariable", "OutVariable", "OutBuffer", "PipelineVariable", "InformationAction", "InformationVariable", "ProgressAction"];
-    static readonly string[] ReservedParameters = [nameof(File), nameof(Show)];
+    static readonly string[] ReservedParameters = [nameof(File), nameof(Prompt), nameof(Show)];
 
     [Parameter(Position = 0, Mandatory = true)]
     public string File { get; set; }

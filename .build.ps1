@@ -6,7 +6,7 @@ param(
 
 $ModuleName = 'FarNet.Stateless'
 $ModuleRoot = "$FarHome\FarNet\Lib\$ModuleName"
-$Description = 'Stateless library interactive helpers.'
+$Description = 'Interactive workflows using dotnet-state-machine/stateless.'
 
 task build meta, {
 	Set-Location src
@@ -14,7 +14,7 @@ task build meta, {
 }
 
 task clean {
-	remove src\*\bin, src\*\obj, README.htm, *.nupkg, z
+	remove README.htm, *.nupkg, z, src\*\bin, src\*\obj, examples\csharp\bin, examples\csharp\obj
 }
 
 task publish {
@@ -122,7 +122,7 @@ task nuget package, version, {
 		<projectUrl>https://github.com/nightroman/$ModuleName</projectUrl>
 		<description>$Description</description>
 		<releaseNotes>https://github.com/nightroman/$ModuleName/blob/main/Release-Notes.md</releaseNotes>
-		<tags>Stateless State Machine</tags>
+		<tags>Stateless State Machine Workflow</tags>
 	</metadata>
 </package>
 "@

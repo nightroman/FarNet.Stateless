@@ -19,7 +19,7 @@
 
 	PrivateData = @{
 		PSData = @{
-			Tags = 'Stateless', 'Interactive', 'State', 'Machine'
+			Tags = 'Stateless', 'State', 'Machine', 'Workflow'
 			ProjectUri = 'https://github.com/nightroman/FarNet.Stateless'
 			LicenseUri = 'https://github.com/nightroman/FarNet.Stateless/blob/main/LICENSE'
 			ReleaseNotes = 'https://github.com/nightroman/FarNet.Stateless/blob/main/Release-Notes.md'

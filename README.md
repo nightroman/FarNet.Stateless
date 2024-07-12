@@ -2,7 +2,7 @@
 
 # FarNet.Stateless
 
-Stateless library interactive helpers, PowerShell module and FarNet library
+Interactive workflows using dotnet-state-machine/stateless, PowerShell module and FarNet library.
 
 The package provides interactive helpers for [Stateless] state machines.\
 Machines may be created in PowerShell scripts or in imported assemblies.

@@ -9,8 +9,11 @@ namespace PS.FarNet.Stateless;
 
 public abstract class BaseInvokeCmdlet : PSCmdlet
 {
-    // '0' and 's' excluded
-    const string HotKeys = "123456789abcdefghijklmnopqrtuvwxyz";
+    // '0', 'p', 's' excluded
+    const string HotKeys = "123456789abcdefghijklmnoqrtuvwxyz";
+
+    [Parameter]
+    public SwitchParameter Prompt { get; set; }
 
     [Parameter]
     public SwitchParameter Show { get; set; }
@@ -64,14 +67,32 @@ public abstract class BaseInvokeCmdlet : PSCmdlet
                 choices.Add(choice);
             }
 
+            int indexExit = choices.Count;
             choices.Add(new ChoiceDescription("&0. Exit") { HelpMessage = "Exit" });
 
+            int indexPrompt = -1;
+            if (Prompt)
+            {
+                indexPrompt = choices.Count;
+                choices.Add(new ChoiceDescription("&Prompt") { HelpMessage = "Enter nested prompt." });
+            }
+
+            int indexShow = -1;
             if (Show)
-                choices.Add(new ChoiceDescription("&Show") { HelpMessage = "Show the state machine graph." });
+            {
+                indexShow = choices.Count;
+                choices.Add(new ChoiceDescription("&Show") { HelpMessage = "Show state graph." });
+            }
 
             var index = Host.UI.PromptForChoice(captionText, messageText, choices, 0);
 
-            if (Show && index == choices.Count - 1)
+            if (Prompt && index == indexPrompt)
+            {
+                Host.EnterNestedPrompt();
+                continue;
+            }
+
+            if (Show && index == indexShow)
             {
                 ScriptBlock.Create("Show-StateMachine $args[0]").Invoke(machine);
                 continue;

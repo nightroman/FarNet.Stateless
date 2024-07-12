@@ -2,7 +2,7 @@
     about_FarNet.Stateless
 
 SHORT DESCRIPTION
-    Stateless library interactive helpers.
+    Interactive workflows using dotnet-state-machine/stateless.
 
 LONG DESCRIPTION
     The module provides helpers for the "Stateless" library.
