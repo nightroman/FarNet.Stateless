@@ -26,4 +26,4 @@ $entry = [Action[Stateless.StateMachine`2+Transition[string, string]]]{
 $null = $machine.Configure($off).Permit($trigger, $on).OnEntry($entry)
 $null = $machine.Configure($on).Permit($trigger, $off).OnEntry($entry)
 
-Invoke-StateMachine $machine -Show
+Invoke-StateMachine $machine -AddShow

@@ -1,6 +1,6 @@
 ﻿<#
 .Synopsis
-	Setting object properties interactively using the state machine loop.
+	Setting object properties interactively using state machine loop.
 #>
 
 param(

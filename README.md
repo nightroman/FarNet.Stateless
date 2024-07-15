@@ -1,15 +1,16 @@
-﻿[Stateless]: https://github.com/dotnet-state-machine/stateless
+﻿# FarNet.Stateless
 
-# FarNet.Stateless
+Interactive workflows using [dotnet-state-machine/stateless](https://github.com/dotnet-state-machine/stateless).
 
-Interactive workflows using dotnet-state-machine/stateless, PowerShell module and FarNet library.
-
-The package provides interactive helpers for [Stateless] state machines.\
-Machines may be created in PowerShell scripts or in imported assemblies.
-
-Packages:
-- PowerShell 5.1+ module, PSGallery [FarNet.Stateless](https://www.powershellgallery.com/packages/FarNet.Stateless)
+**Packages**
+- PowerShell 5.1 and 7.x module, PSGallery [FarNet.Stateless](https://www.powershellgallery.com/packages/FarNet.Stateless)
 - FarNet library, NuGet [FarNet.Stateless](https://www.nuget.org/packages/FarNet.Stateless)
+
+**Use cases**
+- Interactive workflows using PowerShell host UI.
+- Persistent workflows using checkpoint files.
+- Testing and visualizing state machines.
+- Interactive input of non-trivial data.
 
 ## Examples
 
@@ -45,35 +46,7 @@ help Show-StateMachine
 ## FarNet library
 
 To install as the FarNet library `FarNet.Stateless`, follow [these steps](https://github.com/nightroman/FarNet#readme).\
-The [NuGet package](https://www.nuget.org/packages/FarNet.Stateless) is installed to `%FARHOME%\FarNet\Lib\FarNet.Stateless`.
-
-The PowerShell module may be imported as:
-
-```powershell
-Import-Module $env:FARHOME\FarNet\Lib\FarNet.Stateless
-```
-
-**Expose the module as a symbolic link or junction**
-
-Consider exposing this module, so that you can:
-
-```powershell
-Import-Module FarNet.Stateless
-```
-
-(1) Choose one of the module directories, see `$env:PSModulePath`.
-
-(2) Change to the selected directory and create the symbolic link
-
-```powershell
-New-Item FarNet.Stateless -ItemType SymbolicLink -Value $env:FARHOME\FarNet\Lib\FarNet.Stateless
-```
-
-(3) Alternatively, you may create the similar folder junction point in Far
-Manager using `AltF6`.
-
-Then you may update the FarNet package with new versions. The symbolic link or
-junction do not have to be updated, they point to the same location.
+See [PowerShell FarNet modules](https://github.com/nightroman/FarNet/wiki/PowerShell-FarNet-modules) for details.
 
 ## See also
 

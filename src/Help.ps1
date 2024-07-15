@@ -8,11 +8,14 @@ $_Machine = @'
 ### BaseInvoke
 $BaseInvoke = @{
 	parameters = @{
-		Prompt = @'
+		Exit = @'
+		Tells to exit the trigger choice loop when there are no triggers.
+'@
+		AddPrompt = @'
 		Tells to add the "Prompt" choice. It enters the nested prompt.
 		Type `exit` to exit the nested prompt and resume the loop.
 '@
-		Show = @'
+		AddShow = @'
 		Tells to add the "Show" choice. It generates HTML with the state
 		machine graph and opens the page by the associated program.
 '@
@@ -118,5 +121,9 @@ Merge-Helps $BaseInvoke @{
 '@
 	parameters = @{
 		Machine = $_Machine
+		Output = @'
+		Tells to output the generated DOT-graph to the specified file instead
+		of generating and showing HTML with it.
+'@
 	}
 }

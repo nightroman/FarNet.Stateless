@@ -13,10 +13,15 @@ public abstract class BaseInvokeCmdlet : PSCmdlet
     const string HotKeys = "123456789abcdefghijklmnoqrtuvwxyz";
 
     [Parameter]
-    public SwitchParameter Prompt { get; set; }
+    public SwitchParameter AddPrompt { get; set; }
 
     [Parameter]
-    public SwitchParameter Show { get; set; }
+    public SwitchParameter AddShow { get; set; }
+
+    [Parameter]
+    public SwitchParameter Exit { get; set; }
+
+    private static readonly ScriptBlock ReadHost = ScriptBlock.Create("Read-Host $args[0]");
 
     protected MetaMachine Helper { get; private set; }
 
@@ -48,13 +53,18 @@ public abstract class BaseInvokeCmdlet : PSCmdlet
         Action fired,
         Action exited)
     {
-        Helper = new MetaMachine(machine);
+        Helper = new MetaMachine(machine.ToBaseObject());
 
         while (true)
         {
-            var state1 = Helper.State;
             var triggers = Helper.GetPermittedTriggers();
+            if (Exit && triggers.Count == 0)
+            {
+                exited?.Invoke();
+                break;
+            }
 
+            var state1 = Helper.State;
             var captionText = GetText(caption, Helper.State);
             var messageText = GetText(message, string.Empty);
 
@@ -63,7 +73,8 @@ public abstract class BaseInvokeCmdlet : PSCmdlet
             foreach (var trigger in triggers)
             {
                 ++n;
-                var choice = new ChoiceDescription($"&{HotKeys[n]}. {trigger.Trigger}") { HelpMessage = trigger.Trigger.ToString() };
+                var label = n < HotKeys.Length ? $"&{HotKeys[n]}. {trigger.Trigger}" : trigger.Trigger.ToString();
+                var choice = new ChoiceDescription(label) { HelpMessage = trigger.Trigger.ToString() };
                 choices.Add(choice);
             }
 
@@ -71,14 +82,14 @@ public abstract class BaseInvokeCmdlet : PSCmdlet
             choices.Add(new ChoiceDescription("&0. Exit") { HelpMessage = "Exit" });
 
             int indexPrompt = -1;
-            if (Prompt)
+            if (AddPrompt)
             {
                 indexPrompt = choices.Count;
                 choices.Add(new ChoiceDescription("&Prompt") { HelpMessage = "Enter nested prompt." });
             }
 
             int indexShow = -1;
-            if (Show)
+            if (AddShow)
             {
                 indexShow = choices.Count;
                 choices.Add(new ChoiceDescription("&Show") { HelpMessage = "Show state graph." });
@@ -86,20 +97,20 @@ public abstract class BaseInvokeCmdlet : PSCmdlet
 
             var index = Host.UI.PromptForChoice(captionText, messageText, choices, 0);
 
-            if (Prompt && index == indexPrompt)
+            if (AddPrompt && index == indexPrompt)
             {
                 Host.EnterNestedPrompt();
                 continue;
             }
 
-            if (Show && index == indexShow)
+            if (AddShow && index == indexShow)
             {
                 ScriptBlock.Create("Show-StateMachine $args[0]").Invoke(machine);
                 continue;
             }
 
             // exit?
-            if (index == triggers.Count)
+            if (index == indexExit)
             {
                 exited?.Invoke();
                 break;
@@ -124,9 +135,19 @@ public abstract class BaseInvokeCmdlet : PSCmdlet
                 for (int i = 0; i < values.Length; i++)
                 {
                     var prompt = $"{selectedTrigger.Trigger} [{i}]";
-                    var value = ScriptBlock.Create("Read-Host $args[0]").InvokeReturnAsIs(prompt);
-                    value = LanguagePrimitives.ConvertTo(value, selectedTrigger.ParameterTypes[i]);
-                    values[i] = value;
+                    while(true)
+                    {
+                        try
+                        {
+                            var value = ReadHost.InvokeReturnAsIs(prompt);
+                            values[i] = LanguagePrimitives.ConvertTo(value, selectedTrigger.ParameterTypes[i]);
+                            break;
+                        }
+                        catch (PSInvalidCastException)
+                        {
+                            continue;
+                        }
+                    }
                 }
 
                 // state changed?

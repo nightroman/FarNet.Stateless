@@ -8,6 +8,46 @@ $ModuleName = 'FarNet.Stateless'
 $ModuleRoot = "$FarHome\FarNet\Lib\$ModuleName"
 $Description = 'Interactive workflows using dotnet-state-machine/stateless.'
 
+task readme {
+	Set-Location examples
+	$(
+		Write-Output @'
+<!--Generated-->
+# PowerShell examples
+
+Scripts `*.stateless.ps1` are for `Invoke-Stateless`, the interactive loop with
+checkpoints. The workflow may be interrupted and resumed later in the same or
+new session.
+
+Other scripts use `Invoke-StateMachine` and may be invoked directly. They are
+simple interactive prompt for choice loops, not persistent.
+
+**Scripts**
+
+'@
+
+		(Get-Item *.ps1).ForEach{
+			$help = Get-Help $_.FullName
+			$synopsis = $help.Synopsis
+			Write-Output "- [$($_.Name)]($($_.Name)) - $synopsis"
+			assert $synopsis.EndsWith('.')
+		}
+
+
+		remove assets/*.svg
+		(Get-Item *.ps1).Where{$_.Name -notlike '*.stateless.ps1'}.ForEach{
+			Write-Output '', "## $($_.Name)", "![](assets/$($_.Name).svg)"
+			function Invoke-StateMachine($machine) {
+				Show-StateMachine $machine -Output z.dot
+				exec { & "$env:Graphviz\dot.exe" -Tsvg -o "$pwd\assets\$($_.Name).svg" "$pwd\z.dot" }
+				exit
+			}
+			& $_
+			remove z.dot
+		}
+	) | Set-Content README.md
+}
+
 task build meta, {
 	Set-Location src
 	exec { dotnet build -c $Configuration }

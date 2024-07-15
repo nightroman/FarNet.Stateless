@@ -1,4 +1,5 @@
-﻿
+﻿Import-Module FarNet.Stateless
+
 function Use-Exit {
 	keys 0
 	job {
@@ -27,13 +28,13 @@ function Use-PhoneStart {
 	keys J o e Enter
 	job {
 		Assert-Far $Far.Dialog[0].Text -eq 'Ringing'
-		Assert-Far $Far.Dialog[3].Text -eq 'Call   : Joe  - '
+		Assert-Far $Far.Dialog[3].Text -eq 'Call   : Joe  -'
 	}
 
 	keys Enter
 	job {
 		Assert-Far $Far.Dialog[0].Text -eq 'Connected'
-		Assert-Far ($Far.Dialog[3].Text -match 'Joe .*?\d\d\d\d.*? - $')
+		Assert-Far ($Far.Dialog[3].Text -match 'Joe .*?\d\d\d\d.*? -$')
 	}
 
 	keys Enter

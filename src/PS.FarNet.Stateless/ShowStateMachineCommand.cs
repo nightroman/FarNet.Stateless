@@ -13,6 +13,9 @@ public sealed class ShowStateMachineCommand : PSCmdlet
     [Parameter(Position = 0, Mandatory = true)]
     public object Machine { get; set; }
 
+    [Parameter]
+    public string Output { get; set; }
+
     private static readonly Regex LambdaMethod = new("\\blambda_method\\d*");
 
     private static readonly ScriptBlock GetViz = ScriptBlock.Create("Get-Command viz-standalone.js -CommandType Application -ErrorAction Ignore");
@@ -20,11 +23,18 @@ public sealed class ShowStateMachineCommand : PSCmdlet
 
     protected override void BeginProcessing()
     {
-        var helper = new MetaMachine(Machine);
+        var helper = new MetaMachine(Machine.ToBaseObject());
         var info = helper.GetInfo();
 
         var dot = UmlDotGraph.Format(info);
         dot = LambdaMethod.Replace(dot, "Function");
+
+        if (Output != null)
+        {
+            Output = GetUnresolvedProviderPathFromPSPath(Output);
+            File.WriteAllText(Output, dot);
+            return;
+        }
 
         var url = GetViz.InvokeReturnAsIs().ToBaseObject() is CommandInfo command
             ? "file:///" + command.Source.Replace('\\', '/')

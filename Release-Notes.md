@@ -1,6 +1,17 @@
 # FarNet.Stateless Release Notes
 See also [Stateless/CHANGELOG](https://github.com/dotnet-state-machine/stateless/blob/dev/CHANGELOG.md)
 
+## v0.1.0
+
+Changes:
+- New parameter `Exit` (`Invoke-Stateless`, `Invoke-StateMachine`).
+- New parameter `Output` (`Show-StateMachine`).
+- Renamed `Show` -> `AddShow`, `Prompt` -> `AddPrompt`.
+
+Fixes:
+- Unwrap `PSObject` passed as state machine.
+- Catch invalid parameter input and repeat.
+
 ## v0.0.3
 
 New parameter `Prompt`.

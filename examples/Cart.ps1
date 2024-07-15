@@ -1,4 +1,8 @@
-﻿
+﻿<#
+.Synopsis
+	Shopping cart interactive workflow with some input.
+#>
+
 param(
 	[string]$State = 'Draft',
 	[string]$Note = '',
@@ -63,4 +67,4 @@ function prompt {
 	"$($machine.State)> "
 }
 
-Invoke-StateMachine $machine -Show -Prompt -Message {Get-StatelessMessage}
+Invoke-StateMachine $machine -AddShow -AddPrompt -Message {Get-StatelessMessage}
