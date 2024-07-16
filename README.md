@@ -10,7 +10,8 @@ Interactive workflows using [dotnet-state-machine/stateless](https://github.com/
 - Interactive workflows using PowerShell host UI.
 - Persistent workflows using checkpoint files.
 - Testing and visualizing state machines.
-- Interactive input of non-trivial data.
+- Interactive input of complex data.
+- Hierarchical action/choice menus.
 
 ## Examples
 

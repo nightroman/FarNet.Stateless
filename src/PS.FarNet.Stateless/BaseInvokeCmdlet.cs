@@ -73,8 +73,9 @@ public abstract class BaseInvokeCmdlet : PSCmdlet
             foreach (var trigger in triggers)
             {
                 ++n;
-                var label = n < HotKeys.Length ? $"&{HotKeys[n]}. {trigger.Trigger}" : trigger.Trigger.ToString();
-                var choice = new ChoiceDescription(label) { HelpMessage = trigger.Trigger.ToString() };
+                var name = trigger.Trigger.ToString();
+                var label = n < HotKeys.Length ? $"&{HotKeys[n]}. {name}" : name;
+                var choice = new ChoiceDescription(label) { HelpMessage = name };
                 choices.Add(choice);
             }
 

@@ -18,21 +18,21 @@ $null = $config.Permit('Simple', 'Simple')
 $null = $config.Permit('Persistent', 'Persistent')
 
 $config = $machine.Configure('Tools')
+$null = $config.Permit('Back', 'Main')
 $null = $config.Permit('EditFlags.ps1', 'EditFlags.ps1')
 $null = $config.Permit('EditProperties.ps1', 'EditProperties.ps1')
-$null = $config.Permit('Back', 'Main')
 
 $config = $machine.Configure('Simple')
+$null = $config.Permit('Back', 'Main')
 $null = $config.Permit('Cart.ps1', 'Cart.ps1')
 $null = $config.Permit('OnOff.ps1', 'OnOff.ps1')
 $null = $config.Permit('Phone.ps1', 'Phone.ps1')
 $null = $config.Permit('Steps.ps1', 'Steps.ps1')
-$null = $config.Permit('Back', 'Main')
 
 $config = $machine.Configure('Persistent')
+$null = $config.Permit('Back', 'Main')
 $null = $config.Permit('Phone.stateless.ps1', 'Phone.stateless.ps1')
 $null = $config.Permit('Steps.stateless.ps1', 'Steps.stateless.ps1')
-$null = $config.Permit('Back', 'Main')
 
 # Use -Exit in order to exit on any terminal state.
 Invoke-StateMachine $machine -AddShow -Exit

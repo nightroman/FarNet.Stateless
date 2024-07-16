@@ -7,7 +7,7 @@ job {
 	Assert-Far $Far.Dialog[0].Text -eq 'OffHook'
 	Assert-Far ($Far.Dialog[3].Text -match 'Joe .*?\d\d\d\d.*? - .*?\d\d\d\d')
 }
-Use-Exit
+keys 0
 
 ### Destroyed
 Use-PhoneStart
@@ -24,7 +24,7 @@ job {
 	Assert-Far $Far.Dialog[0].Text -eq 'Destroyed'
 	Assert-Far ($Far.Dialog[3].Text -match 'Joe .*?\d\d\d\d.*? - .*?\d\d\d\d')
 }
-Use-Exit
+keys 0
 
 ### OnHook
 Use-PhoneStart
@@ -36,4 +36,4 @@ job {
 	Assert-Far $Far.Dialog[0].Text -eq 'OnHook'
 	Assert-Far ($Far.Dialog[3].Text -match 'Joe .*?\d\d\d\d.*? - .*?\d\d\d\d')
 }
-Use-Exit
+keys 0

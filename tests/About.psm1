@@ -1,12 +1,5 @@
 ﻿Import-Module FarNet.Stateless
 
-function Use-Exit {
-	keys 0
-	job {
-		Assert-Far -Panels
-	}
-}
-
 function Use-PhoneStart {
 	run {
 		& $PSScriptRoot\..\examples\Phone.ps1
