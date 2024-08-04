@@ -40,7 +40,7 @@ public abstract class BaseInvokeCmdlet : PSCmdlet
         var res = script.Invoke();
         return res.Count switch
         {
-            0 => string.Empty,
+            0 => defaultValue.ToString(),
             1 => LanguagePrimitives.ConvertTo<string>(res[0]),
             _ => string.Join(Environment.NewLine, res.Select(LanguagePrimitives.ConvertTo<string>)),
         };

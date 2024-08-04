@@ -1,5 +1,19 @@
 ﻿Import-Module FarNet.Stateless
 
+function Test-StateMachineScript($ScriptPath) {
+	$data.ScriptPath = $ScriptPath
+	run {
+		& $data.ScriptPath
+	}
+	job {
+		Assert-Far -Dialog
+	}
+	keys 0
+	job {
+		Assert-Far -Panels
+	}
+}
+
 function Use-PhoneStart {
 	run {
 		& $PSScriptRoot\..\examples\Phone.ps1

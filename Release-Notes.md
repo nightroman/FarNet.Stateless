@@ -1,6 +1,10 @@
 # FarNet.Stateless Release Notes
 See also [Stateless/CHANGELOG](https://github.com/dotnet-state-machine/stateless/blob/dev/CHANGELOG.md)
 
+## v0.1.1
+
+Fix empty caption (should be the current state).
+
 ## v0.1.0
 
 Changes:
