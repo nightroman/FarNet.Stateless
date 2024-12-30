@@ -38,7 +38,7 @@ public sealed class ShowStateMachineCommand : PSCmdlet
 
         var url = GetViz.InvokeReturnAsIs().ToBaseObject() is CommandInfo command
             ? "file:///" + command.Source.Replace('\\', '/')
-            : "https://github.com/mdaines/viz-js/releases/download/release-viz-3.7.0/viz-standalone.js";
+            : "https://github.com/mdaines/viz-js/releases/download/release-viz-3.11.0/viz-standalone.js";
 
         var sb = new StringBuilder();
         sb.AppendLine("""

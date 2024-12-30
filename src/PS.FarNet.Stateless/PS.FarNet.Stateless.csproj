@@ -3,13 +3,13 @@
     <FarHome Condition="'$(FarHome)' == ''">C:\Bin\Far\x64</FarHome>
     <OutDir>$(FarHome)\FarNet\Lib\FarNet.Stateless</OutDir>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>12.0</LangVersion>
+    <LangVersion>13.0</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\FarNet.Stateless\FarNet.Stateless.csproj" />
     <PackageReference Include="PowerShellStandard.Library" Version="5.1.1" />
-    <PackageReference Include="Stateless" Version="5.16.0" />
+    <PackageReference Include="Stateless" Version="5.17.0" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="ib publish -Configuration $(Configuration) -FarHome $(FarHome)" />
