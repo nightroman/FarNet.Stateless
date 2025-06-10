@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿
 namespace FarNet.Stateless;
 
 public class MetaTrigger(object trigger, object triggerWithParameters, IReadOnlyList<Type> parameterTypes)

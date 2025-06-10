@@ -1,7 +1,6 @@
-﻿using FarNet.Stateless;
-using System;
+﻿
+using FarNet.Stateless;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Management.Automation;
 using System.Management.Automation.Host;
 

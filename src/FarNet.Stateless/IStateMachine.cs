@@ -1,5 +1,5 @@
-﻿using Stateless.Reflection;
-using System.Collections.Generic;
+﻿
+using Stateless.Reflection;
 
 namespace FarNet.Stateless;
 

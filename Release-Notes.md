@@ -1,6 +1,10 @@
 # FarNet.Stateless Release Notes
 See also [Stateless/CHANGELOG](https://github.com/dotnet-state-machine/stateless/blob/dev/CHANGELOG.md)
 
+## v0.1.3
+
+Update viz-3.13.0
+
 ## v0.1.2
 
 Update Stateless 5.17.0, viz-3.11.0

@@ -78,7 +78,7 @@ task help {
 }
 
 task version {
-	($Script:Version = switch -Regex -File Release-Notes.md {'##\s+v(\d+\.\d+\.\d+)' {$Matches[1]; break} })
+	($Script:Version = Get-BuildVersion Release-Notes.md '##\s+v(\d+\.\d+\.\d+)')
 }
 
 task markdown version, {
@@ -129,8 +129,7 @@ task package help, markdown, version, {
 	Set-Psd $xml $Version 'Data/Table/Item[@Key="ModuleVersion"]'
 	Export-PsdXml $PSPackageRoot\$ModuleName.psd1 $xml
 
-	$result = Get-ChildItem $PSPackageRoot -Recurse -File -Name | Out-String
-	$sample = @'
+	Assert-SameFile.ps1 -Result (Get-ChildItem $PSPackageRoot -Recurse -File -Name) -Text -View $env:MERGE @'
 about_FarNet.Stateless.help.txt
 FarNet.Stateless.dll
 FarNet.Stateless.ini
@@ -143,7 +142,6 @@ README.htm
 Stateless.dll
 Stateless.xml
 '@
-	Assert-SameFile.ps1 -Text $sample $result $env:MERGE
 }
 
 task nuget package, version, {
@@ -183,7 +181,7 @@ task pushPSGallery package, {
 task push pushNuGet, pushPSGallery, clean
 
 task test {
-	Start-Far "ps: Test.far.ps1 * -Quit" .\tests -ReadOnly -Title $ModuleName\test
+	Start-Far "ps: $env:FarNetCode\Test\Test-FarNet.ps1 * -Quit" .\tests -ReadOnly
 }
 
 task . build, clean
