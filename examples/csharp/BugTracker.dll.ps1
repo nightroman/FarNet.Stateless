@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = 1
+﻿$ErrorActionPreference=1
 Import-Module FarNet.Stateless
 Add-Type -Path $PSScriptRoot\bin\Debug\net8.0\Extra.dll
 

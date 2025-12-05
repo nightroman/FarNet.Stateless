@@ -13,7 +13,7 @@ param(
 	[string]$State = 'Step1'
 )
 
-$ErrorActionPreference = 1
+$ErrorActionPreference=1
 Import-Module FarNet.Stateless
 
 $1 = 'Step1'

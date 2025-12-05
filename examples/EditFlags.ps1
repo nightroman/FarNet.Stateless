@@ -8,7 +8,7 @@ param(
 	[object]$Value = 0
 )
 
-$ErrorActionPreference = 1
+$ErrorActionPreference=1
 Import-Module FarNet.Stateless
 
 $machine = New-Object "Stateless.StateMachine[$Enum, string]" $Value

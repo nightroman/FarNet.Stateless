@@ -9,10 +9,9 @@ run {
 }
 job {
 	Assert-Far -Dialog
-	Assert-Far $Far.Dialog[0].Text -eq state1
-	Assert-Far $Far.Dialog[1].Text -eq ''
-
-	$Far.Dialog.Close()
+	Assert-Far $__[0].Text -eq state1
+	Assert-Far $__[1].Text -eq '&0. Exit (default)'
+	$__.Close(-2)
 }
 
 ### custom returns empty, then empty is used
@@ -22,8 +21,7 @@ run {
 }
 job {
 	Assert-Far -Dialog
-	Assert-Far $Far.Dialog[0].Text -eq ''
-	Assert-Far $Far.Dialog[1].Text -eq ''
-
-	$Far.Dialog.Close()
+	Assert-Far $__[0].Text -eq ''
+	Assert-Far $__[1].Text -eq '&0. Exit (default)'
+	$__.Close(-2)
 }

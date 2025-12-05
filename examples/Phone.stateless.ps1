@@ -25,7 +25,7 @@ param(
 	[int]$Volume = 10
 )
 
-$ErrorActionPreference = 1
+$ErrorActionPreference=1
 Import-Module FarNet.Stateless
 
 enum PhoneState {

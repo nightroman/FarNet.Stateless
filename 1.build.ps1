@@ -1,12 +1,16 @@
+<#
+.Synopsis
+	Build script, https://github.com/nightroman/Invoke-Build
+#>
 
 param(
 	$Configuration = (property Configuration Release),
 	$FarHome = (property FarHome C:\Bin\Far\x64)
 )
 
-$ModuleName = 'FarNet.Stateless'
-$ModuleRoot = "$FarHome\FarNet\Lib\$ModuleName"
-$Description = 'Interactive workflows using dotnet-state-machine/stateless.'
+$_name = 'FarNet.Stateless'
+$_root = "$FarHome\FarNet\Lib\$_name"
+$_description = 'Interactive workflows using dotnet-state-machine/stateless.'
 
 task readme {
 	Set-Location examples
@@ -58,31 +62,31 @@ task clean {
 }
 
 task publish {
-	Set-Location $ModuleRoot
+	Set-Location $_root
 	remove *.json
 
-	$v1 = (Select-Xml '//PackageReference[@Include="Stateless"]' "$PSScriptRoot\src\$ModuleName\$ModuleName.csproj").Node.Version
-	Copy-Item -Destination $ModuleRoot $(
+	$v1 = (Select-Xml '//PackageReference[@Include="Stateless"]' "$PSScriptRoot\src\$_name\$_name.csproj").Node.Version
+	Copy-Item -Destination $_root $(
 		"$HOME\.nuget\packages\Stateless\$v1\lib\netstandard2.0\Stateless.dll"
 		"$HOME\.nuget\packages\Stateless\$v1\lib\netstandard2.0\Stateless.xml"
 	)
 }
 
 task content -After publish {
-	exec { robocopy src\Content $ModuleRoot } (0..3)
+	exec { robocopy src\Content $_root } (0..3)
 }
 
 task help {
 	. Helps.ps1
-	Convert-Helps src\Help.ps1 $ModuleRoot\PS.FarNet.Stateless.dll-Help.xml
+	Convert-Helps src\Help.ps1 $_root\PS.FarNet.Stateless.dll-Help.xml
 }
 
 task version {
-	($Script:Version = Get-BuildVersion Release-Notes.md '##\s+v(\d+\.\d+\.\d+)')
+	($Script:_version = Get-BuildVersion Release-Notes.md '##\s+v(\d+\.\d+\.\d+)')
 }
 
 task markdown version, {
-	assert (Test-Path $env:MarkdownCss)
+	requires -Path $env:MarkdownCss
 	exec { pandoc.exe @(
 		'README.md'
 		'--output=README.htm'
@@ -90,19 +94,19 @@ task markdown version, {
 		'--embed-resources'
 		'--standalone'
 		"--css=$env:MarkdownCss"
-		"--metadata=pagetitle=$ModuleName $Version"
+		"--metadata=pagetitle=$_name $_version"
 	)}
 }
 
-task meta -Inputs .build.ps1, Release-Notes.md -Outputs src\Directory.Build.props -Jobs version, {
+task meta -Inputs $BuildFile, Release-Notes.md -Outputs src\Directory.Build.props -Jobs version, {
 	Set-Content src\Directory.Build.props @"
 <Project>
 	<PropertyGroup>
-		<Company>https://github.com/nightroman/$ModuleName</Company>
+		<Company>https://github.com/nightroman/$_name</Company>
 		<Copyright>Copyright (c) Roman Kuzmin</Copyright>
-		<Description>$Description</Description>
-		<Product>$ModuleName</Product>
-		<Version>$Version</Version>
+		<Description>$_description</Description>
+		<Product>$_name</Product>
+		<Version>$_version</Version>
 		<IncludeSourceRevisionInInformationalVersion>False</IncludeSourceRevisionInInformationalVersion>
 	</PropertyGroup>
 </Project>
@@ -111,9 +115,9 @@ task meta -Inputs .build.ps1, Release-Notes.md -Outputs src\Directory.Build.prop
 
 task package help, markdown, version, {
 	remove z
-	$Script:PSPackageRoot = mkdir "z\tools\FarHome\FarNet\Lib\$ModuleName"
+	$Script:PSPackageRoot = mkdir "z\tools\FarHome\FarNet\Lib\$_name"
 
-	exec { robocopy $ModuleRoot $PSPackageRoot /s /xf *.pdb } 1
+	exec { robocopy $_root $PSPackageRoot /s /xf *.pdb } 1
 
 	Copy-Item -Destination z @(
 		'README.md'
@@ -125,9 +129,9 @@ task package help, markdown, version, {
 	)
 
 	Import-Module PsdKit
-	$xml = Import-PsdXml $PSPackageRoot\$ModuleName.psd1
-	Set-Psd $xml $Version 'Data/Table/Item[@Key="ModuleVersion"]'
-	Export-PsdXml $PSPackageRoot\$ModuleName.psd1 $xml
+	$xml = Import-PsdXml $PSPackageRoot\$_name.psd1
+	Set-Psd $xml $_version 'Data/Table/Item[@Key="ModuleVersion"]'
+	Export-PsdXml $PSPackageRoot\$_name.psd1 $xml
 
 	Assert-SameFile.ps1 -Result (Get-ChildItem $PSPackageRoot -Recurse -File -Name) -Text -View $env:MERGE @'
 about_FarNet.Stateless.help.txt
@@ -145,21 +149,21 @@ Stateless.xml
 }
 
 task nuget package, version, {
-	equals $Version (Get-Item "$ModuleRoot\$ModuleName.dll").VersionInfo.ProductVersion
+	equals $_version (Get-Item "$_root\$_name.dll").VersionInfo.ProductVersion
 
 	Set-Content z\Package.nuspec @"
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
-		<id>$ModuleName</id>
-		<version>$Version</version>
+		<id>$_name</id>
+		<version>$_version</version>
 		<authors>Roman Kuzmin</authors>
 		<owners>Roman Kuzmin</owners>
 		<license type="expression">MIT</license>
 		<readme>README.md</readme>
-		<projectUrl>https://github.com/nightroman/$ModuleName</projectUrl>
-		<description>$Description</description>
-		<releaseNotes>https://github.com/nightroman/$ModuleName/blob/main/Release-Notes.md</releaseNotes>
+		<projectUrl>https://github.com/nightroman/$_name</projectUrl>
+		<description>$_description</description>
+		<releaseNotes>https://github.com/nightroman/$_name/blob/main/Release-Notes.md</releaseNotes>
 		<tags>Stateless State Machine Workflow</tags>
 	</metadata>
 </package>
@@ -170,7 +174,7 @@ task nuget package, version, {
 
 task pushNuGet nuget, version, {
 	$NuGetApiKey = Read-Host NuGetApiKey
-	exec { nuget push "$ModuleName.$Version.nupkg" -Source nuget.org -ApiKey $NuGetApiKey }
+	exec { nuget push "$_name.$_version.nupkg" -Source nuget.org -ApiKey $NuGetApiKey }
 }
 
 task pushPSGallery package, {
@@ -181,7 +185,7 @@ task pushPSGallery package, {
 task push pushNuGet, pushPSGallery, clean
 
 task test {
-	Start-Far "ps: $env:FarNetCode\Test\Test-FarNet.ps1 * -Quit" .\tests -ReadOnly
+	exec { pwsf .\tests -nop -x 999 -c Test-FarNet.ps1 }
 }
 
 task . build, clean

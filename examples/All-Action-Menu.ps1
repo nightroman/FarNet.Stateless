@@ -7,7 +7,7 @@
 	The menu resumes when the selected example exits.
 #>
 
-$ErrorActionPreference = 1
+$ErrorActionPreference=1
 Import-Module FarNet.Stateless
 
 $machine = [Stateless.StateMachine[string, string]]::new('Main')

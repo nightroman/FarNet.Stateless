@@ -7,7 +7,7 @@
 	Then the selected example is invoked.
 #>
 
-$ErrorActionPreference = 1
+$ErrorActionPreference=1
 Import-Module FarNet.Stateless
 
 $machine = [Stateless.StateMachine[string, string]]::new('Main')

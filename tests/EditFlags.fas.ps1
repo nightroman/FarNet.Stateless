@@ -8,27 +8,27 @@ run {
 }
 
 job {
-	Assert-Far $Far.Dialog[0].Text -eq None
+	Assert-Far $__[0].Text -eq None
 }
 
 keys Enter
 job {
-	Assert-Far $Far.Dialog[0].Text -eq Alt
+	Assert-Far $__[0].Text -eq Alt
 }
 
 keys Enter
 job {
-	Assert-Far $Far.Dialog[0].Text -eq 'Alt, Shift'
+	Assert-Far $__[0].Text -eq 'Alt, Shift'
 }
 
 keys Enter
 job {
-	Assert-Far $Far.Dialog[0].Text -eq 'Alt, Shift, Control'
+	Assert-Far $__[0].Text -eq 'Alt, Shift, Control'
 }
 
-keys 2
+keys 2 Enter
 job {
-	Assert-Far $Far.Dialog[0].Text -eq 'Alt, Control'
+	Assert-Far $__[0].Text -eq 'Alt, Control'
 }
 
-keys 0
+keys 0 Enter

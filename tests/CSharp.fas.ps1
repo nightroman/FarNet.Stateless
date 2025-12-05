@@ -3,8 +3,7 @@ Import-Module $PSScriptRoot/About.psm1
 
 $root = "$PSScriptRoot\..\examples\csharp"
 if (!(Test-Path $root\bin\Debug\net8.0\Extra.dll)) {
-	$r = dotnet build $root\Extra.csproj
-	if ($LASTEXITCODE) {throw $r}
+	$r = dotnet build $root\Extra.csproj || $(throw $r)
 }
 
 foreach($item in Get-Item $root\*.cs) {

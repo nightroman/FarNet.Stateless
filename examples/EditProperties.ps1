@@ -7,7 +7,7 @@ param(
 	[object]$Properties = [pscustomobject]@{Name='Joe'; Age=42}
 )
 
-$ErrorActionPreference = 1
+$ErrorActionPreference=1
 Import-Module FarNet.Stateless
 
 $machine = [Stateless.StateMachine[string, string]]::new('')

@@ -3,7 +3,7 @@
 	Simple on/off example with external state storage.
 #>
 
-$ErrorActionPreference = 1
+$ErrorActionPreference=1
 Import-Module FarNet.Stateless
 
 $on = 'On'
